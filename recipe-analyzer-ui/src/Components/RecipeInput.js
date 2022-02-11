@@ -12,13 +12,13 @@ function RecipeInput(props) {
     }
 
     const scrape = (input) => {
-        analyze(input).then((data) => {
+        call_recipe_scraper(input).then((data) => {
             console.log("scraped: \n" + JSON.stringify(data))
         })
     }
 
-    const analyze = async (url) => {
-        const res = await fetch(url, {
+    const call_recipe_scraper = async (url) => {
+        const res = await fetch("http://localhost:3500"+"?"+"url="+url, {
             method: 'GET'
         });
 

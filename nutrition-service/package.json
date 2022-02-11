@@ -1,0 +1,14 @@
+{
+  "name": "nutrition-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "nodemon index.mjs"
+  },
+  "author": "Satyam Patel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}

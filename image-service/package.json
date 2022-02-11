@@ -1,0 +1,14 @@
+{
+  "name": "image-service",
+  "version": "1.0.0",
+  "description": "Returns an image when given a query",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "nodemon index.mjs"
+  },
+  "author": "Satyam Patel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
