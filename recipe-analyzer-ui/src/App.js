@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Welcome from './Components/Welcome';
-
+import RecipeInput from "./Components/RecipeInput";
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Welcome/>
+        <h1>Recipe Analyzer</h1>
+        <RecipeInput></RecipeInput>
       </header>
     </div>
   );

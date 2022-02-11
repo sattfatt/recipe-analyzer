@@ -1,0 +1,15 @@
+{
+  "name": "recipe-scraper-service",
+  "version": "1.0.0",
+  "description": "This app scrapes a given url for recipe data and sends the data back to the requester.",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Satyam Patel",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2"
+  }
+}

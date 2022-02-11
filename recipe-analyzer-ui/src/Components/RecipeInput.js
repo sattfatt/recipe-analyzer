@@ -1,5 +1,6 @@
 import "../Styles/RecipeInput.css"
 import {useState} from "react"
+
 function RecipeInput(props) {
 
     const [input, setInput] = useState("");
@@ -12,12 +13,16 @@ function RecipeInput(props) {
 
     const scrape = (input) => {
         analyze(input).then((data) => {
-            console.log("scraped: " + data)
+            console.log("scraped: \n" + JSON.stringify(data))
         })
     }
 
     const analyze = async (url) => {
-        return url;
+        const res = await fetch(url, {
+            method: 'GET'
+        });
+
+        return res.json();
     }
 
     return (
