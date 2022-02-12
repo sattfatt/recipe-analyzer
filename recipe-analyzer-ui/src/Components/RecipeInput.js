@@ -1,5 +1,6 @@
 import "../Styles/RecipeInput.css"
 import {useState} from "react"
+import { call_nutrient_service, call_recipe_scraper } from "../Controller/controller";
 
 function RecipeInput(props) {
 
@@ -14,15 +15,12 @@ function RecipeInput(props) {
     const scrape = (input) => {
         call_recipe_scraper(input).then((data) => {
             console.log("scraped: \n" + JSON.stringify(data))
+            props.setToolsInfo(data.tools)
+            call_nutrient_service(data).then((nutrients) => {
+                props.setNutrientInfo(nutrients);
+                console.log(JSON.stringify(nutrients))
+            })
         })
-    }
-
-    const call_recipe_scraper = async (url) => {
-        const res = await fetch("http://localhost:3500"+"?"+"url="+url, {
-            method: 'GET'
-        });
-
-        return res.json();
     }
 
     return (

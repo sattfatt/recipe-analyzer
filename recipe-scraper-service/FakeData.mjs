@@ -1,6 +1,7 @@
 const data = {
     ingredients: ["beans", "cheese", "tortilla", "sauce"],
-    quantities: ["1 oz", "1 oz", "3", "1 tbsp"],
+    quantities: ["1", "1", "3", "1"],
+    units: ["oz", "oz", "count", "tbsp"],
     tools: ["plate", "microwave", "pan"]
 }
 
