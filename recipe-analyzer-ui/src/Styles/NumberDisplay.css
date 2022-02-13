@@ -1,0 +1,14 @@
+#number-container {
+    background-color: var(--card-color);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    min-width: 55px;
+}
+
+#number-title {
+    font-size: 25px;
+    color: white;
+    background-color: var(--highlight-color-2);
+    border-radius: 5px;
+}

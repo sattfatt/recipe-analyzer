@@ -1,6 +1,7 @@
 import "../Styles/RecipeInput.css"
-import {useState} from "react"
-import { call_nutrient_service, call_recipe_scraper } from "../Controller/controller";
+import {useEffect, useState} from "react"
+import { call_nutrient_service, call_recipe_scraper, generate_report_data } from "../Controller/controller";
+import { trigger } from "../Utilities/Events";
 
 function RecipeInput(props) {
 
@@ -13,13 +14,11 @@ function RecipeInput(props) {
     }
 
     const scrape = (input) => {
-        call_recipe_scraper(input).then((data) => {
-            console.log("scraped: \n" + JSON.stringify(data))
-            props.setToolsInfo(data.tools)
-            call_nutrient_service(data).then((nutrients) => {
-                props.setNutrientInfo(nutrients);
-                console.log(JSON.stringify(nutrients))
-            })
+
+        generate_report_data(input).then((reportData) => {
+            props.setToolsInfo(reportData.products);
+            props.setNutrientInfo(reportData.nutrition);
+            trigger('RecipeInput:new-report', reportData);
         })
     }
 

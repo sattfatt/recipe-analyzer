@@ -36,6 +36,39 @@ const call_product_service = async (query) => {
 }
 
 
+const generate_report_data = async (url) => {
+    let reportData = {};
+    reportData["products"] = [];
+    reportData["ingredientImages"] = [];
+    reportData["productImages"] = [];
+    
+    const recipeData = await call_recipe_scraper(url);
+
+    const nutritionInfo = await call_nutrient_service(recipeData);
+    
+    // get all the products and put then in products list
+    for (const tool of recipeData.tools) {
+        const link = await (await call_product_service(tool)).json();
+        reportData["products"].push(link.link)
+
+        const img = await (await call_image_service(tool)).json();
+        reportData["productImages"].push(img.link);
+    }
+
+    // get all the image links for the recipes
+    for (const ingredient of recipeData.ingredients) {
+        const link = await (await call_image_service(ingredient)).json();
+        reportData["ingredientImages"].push(link.link);
+    }
+
+    reportData["ingredients"] = recipeData.ingredients;
+    reportData["nutrition"] = nutritionInfo;
 
 
-export {call_image_service, call_nutrient_service, call_recipe_scraper, call_product_service}
+
+    return reportData;
+}
+
+
+
+export {generate_report_data, call_image_service, call_nutrient_service, call_recipe_scraper, call_product_service}
