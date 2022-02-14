@@ -1,0 +1,62 @@
+
+#collapse-main-container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+#collapse-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    transition: 1s ease;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#collapse-list-title {
+    background-color: var(--highlight-color-2);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    transition: 0.5s ease;
+}
+
+#collapse-list-title:hover {
+    box-shadow: rgba(255, 255, 255, 0.76) 0px 0px 0px 2px;
+    transition: 0.1s ease;
+}
+
+#collapse-list-title:active {
+    filter: brightness(0.9);
+    transition: 0.2s ease;
+}
+
+#list-item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    background-color: var(--card-color);
+    transition: 1s ease;
+    border-radius: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 10px;
+    height: 75px;
+}
+
+#list-item-container>img {
+    height: 100%;
+}

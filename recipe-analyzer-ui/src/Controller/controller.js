@@ -41,6 +41,7 @@ const generate_report_data = async (url) => {
     reportData["products"] = [];
     reportData["ingredientImages"] = [];
     reportData["productImages"] = [];
+    reportData["productNames"] = [];
     
     const recipeData = await call_recipe_scraper(url);
 
@@ -49,7 +50,8 @@ const generate_report_data = async (url) => {
     // get all the products and put then in products list
     for (const tool of recipeData.tools) {
         const link = await (await call_product_service(tool)).json();
-        reportData["products"].push(link.link)
+        reportData["products"].push(link.link);
+        reportData["productNames"].push(tool);
 
         const img = await (await call_image_service(tool)).json();
         reportData["productImages"].push(img.link);

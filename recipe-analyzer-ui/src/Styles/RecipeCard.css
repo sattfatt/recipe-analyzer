@@ -10,6 +10,7 @@
     width: 25vw;
     min-width: 250px;
     margin-top: 100px;
+    margin-bottom: 250px;
 }
 
 #recipe-card-title {
@@ -20,4 +21,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#recipe-card-macro-container {
+    width: 100%;
+    box-sizing: border-box;
 }
