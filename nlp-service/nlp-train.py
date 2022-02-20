@@ -1,5 +1,7 @@
 import spacy
 from spacy.tokens import DocBin
+import random
+import copy
 
 nlp = spacy.blank('en');
 
@@ -23,7 +25,16 @@ training_data = [
     ("In a medium pan, put soaked beans, water, onion, garlic powder and olive oil.", [(5, 15, "TOOL")]),
     ("In a large soup pot, heat oil over medium heat. Add carrots, celery, and onions; cook and stir until the onion is tender.", [(5, 19, "TOOL")]),
     ("For each pizza, spread ¼ cup tomato sauce on a pita and top with ¼ cup chicken, ¼ cup broccoli, ½ tablespoon parmesan cheese, and ¼ tablespoon chopped basil.", []),
+    ("Mix eggs, mushrooms, bell peppers and black pepper in a medium mixing bowl.", [(56, 74, "TOOL")]),
 ]
+
+shuffled = copy.deepcopy(training_data)
+random.shuffle(shuffled)
+training_data += shuffled
+
+shuffled = copy.deepcopy(training_data)
+random.shuffle(shuffled)
+training_data += shuffled
 
 validation_data = [
     ("Brown chicken in melted fat in a frying pan. Add onion; cook 2 to 3 minutes.", [(33, 43, "TOOL")]),

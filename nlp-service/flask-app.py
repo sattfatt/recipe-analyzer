@@ -3,7 +3,7 @@ from flask import jsonify
 from flask_cors import CORS
 import spacy
 
-nlp = spacy.load("./model-last")
+nlp = spacy.load("model-last")
 
 app = Flask(__name__)
 CORS(app)
@@ -13,7 +13,8 @@ def onGet():
     doc = nlp(request.args['text'])
     tools = []
     for ent in doc.ents:
-        tools.append(ent.text)
+        
+        tools.append(ent.text + " | " + ent.label_)
     return jsonify({'tools' : tools})
 
 app.run(debug=True, port=8000)
