@@ -38,9 +38,9 @@ function RecipeInput(props) {
             props.setToolsInfo(reportData.products);
             props.setNutrientInfo(reportData.nutrition);
             trigger('RecipeInput:new-report', reportData);
-            
         }).catch((error) => {
             console.log(error);
+            alert(error);
         })
     }
 

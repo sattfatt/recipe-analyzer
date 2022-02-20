@@ -5,6 +5,10 @@ const call_recipe_scraper = async (url) => {
     });
     // convert to json
     const data = await res.json();
+
+    if (data.error){
+        throw(data.error)
+    }
     // return the data
     return data;
 }
@@ -42,8 +46,9 @@ const generate_report_data = async (url) => {
     reportData["ingredientImages"] = [];
     reportData["productImages"] = [];
     reportData["productNames"] = [];
-    
+
     const recipeData = await call_recipe_scraper(url);
+   
 
     const nutritionInfo = await call_nutrient_service(recipeData);
     

@@ -1,0 +1,30 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name" : "Language",
+      "commands" : ["cd nlp-service", "python flask-app.py"]
+    },
+    {
+      "name": "Image",
+      "commands": ["cd image-service", "nodemon"]
+    },
+    {
+      "name": "Product",
+      "commands": ["cd product-service", "nodemon"]
+    },
+    {
+      "name": "Nutrition",
+      "commands": ["cd nutrition-service", "nodemon"]
+    },
+    {
+      "name": "Scraper",
+      "commands": ["cd recipe-scraper-service", "nodemon"]
+    },
+    {
+      "focus": true,
+      "name": "UI",
+      "commands": ["cd recipe-analyzer-ui", "npm start"]
+    }
+  ]
+}
