@@ -2,6 +2,10 @@
   "autorun": false,
   "terminals": [
     {
+      "name" : "Authentication",
+      "commands" : ["cd ../recipe_flow/auth-service", "npm start"]
+    },
+    {
       "name" : "Language",
       "commands" : ["cd nlp-service", "python flask-app.py"]
     },
