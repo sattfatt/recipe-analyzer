@@ -1,9 +1,12 @@
 import {trigger} from "../Utilities/Events.js"
 
 let session_token = null;
+let current_user = null;
+let current_email = null;
 
-async function validate_session() {
-    if (session_token === null) {
+async function validate_session(token) {
+    console.log(token)
+    if (token === null || token ===undefined) {
         return false;
     }
     try {
@@ -12,7 +15,7 @@ async function validate_session() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(session_token)
+            body: JSON.stringify({'token':token})
         });
 
         const currentTime = Date.now()/1000
@@ -47,6 +50,8 @@ async function login(email, password) {
         if (res.status === 201) {
             const resbody = await res.json();
             session_token = {token : resbody.token};
+            current_email = resbody.email;
+            current_user = resbody.name;
             trigger('login', resbody);
             return resbody;
         } else {

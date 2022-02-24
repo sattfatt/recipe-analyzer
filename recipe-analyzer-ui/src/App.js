@@ -6,21 +6,25 @@ import { validate_session } from './Session/session';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { off, on } from './Utilities/Events';
+import { useCookies } from 'react-cookie';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [landpage, setLandpage] = useState(<div></div>);
 
+  const [cookies, setCookie] = useCookies(['token']);
+
   let navigate = useNavigate();
 
-  const handleLogin = () => {
-    setLandpage(<MainPage></MainPage>)
+  const handleLogin = (e) => {
+    setLandpage(<MainPage></MainPage>);
+    setCookie('token', e.detail.token);
     navigate('/');
   }
 
   // check the session
   useEffect(() => {
-    validate_session().then((valid) => {
+    validate_session(cookies.token).then((valid) => {
       if (valid) {
         setIsLoggedIn(true);
         setLandpage(<MainPage></MainPage>)
