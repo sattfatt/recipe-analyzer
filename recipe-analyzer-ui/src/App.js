@@ -1,22 +1,54 @@
 import './App.css';
 import MainPage from './Pages/MainPage';
 import LoginPage from './Pages/LoginPage';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { validate_session } from './Session/session';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { off, on } from './Utilities/Events';
 function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [landpage, setLandpage] = useState(<div></div>);
+
+  let navigate = useNavigate();
+
+  const handleLogin = () => {
+    setLandpage(<MainPage></MainPage>)
+    navigate('/');
+  }
+
+  // check the session
+  useEffect(() => {
+    validate_session().then((valid) => {
+      if (valid) {
+        setIsLoggedIn(true);
+        setLandpage(<MainPage></MainPage>)
+      } else {
+        setIsLoggedIn(false)
+        navigate('/login')
+      }
+    });
+
+    on('login', handleLogin);
+
+    return () => {off('login', handleLogin)};
+  }, [])
+
 
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <Routes>
-            <Route path="/login" element={<LoginPage></LoginPage>} />
-            <Route path="/*" element={<MainPage></MainPage>} />
-          </Routes>
-        </header>
-      </div>
-    </BrowserRouter>
+    <div className="App">
+      <header className="App-header">
+        <Routes>
+          <Route path="/login" element={<LoginPage></LoginPage>} />
+          <Route path="/*" element={landpage} />
+        </Routes>
+      </header>
+    </div>
   );
+
+
 }
 
 export default App;

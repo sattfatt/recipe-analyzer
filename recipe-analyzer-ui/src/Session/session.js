@@ -1,3 +1,5 @@
+import {trigger} from "../Utilities/Events.js"
+
 let session_token = null;
 
 async function validate_session() {
@@ -12,18 +14,22 @@ async function validate_session() {
             },
             body: JSON.stringify(session_token)
         });
-        if (res.status == 200) {
-            const currentTime = Date.now()
-            const resbody = await res.json();
-            if (currentTime > resbody.exp) {
-                return false;
-            }
-            else return true;
-        } else {
+
+        const currentTime = Date.now()/1000
+        const resbody = await res.json();
+        
+        if (currentTime > resbody.exp) {
+            console.log("expired!", currentTime, resbody.exp)
             return false;
         }
+        else {
+            trigger('verify');
+            return true;
+        }
+
     } catch (error) {
         console.error(error);
+        return false;
     }
 
 }
@@ -38,15 +44,14 @@ async function login(email, password) {
             body: JSON.stringify({ 'email': email, 'password': password })
         });
 
-        if (res.status == 200) {
-            const resbody = res.json();
-            return ({
-                "name" : resbody.name,
-                "email": resbody.email,
-                "token": resbody.token
-            })
+        if (res.status === 201) {
+            const resbody = await res.json();
+            session_token = {token : resbody.token};
+            trigger('login', resbody);
+            return resbody;
+        } else {
+            return({"error": "Not Found"})
         }
-
     } catch (error) {
         console.log(error);
     }
@@ -54,4 +59,4 @@ async function login(email, password) {
 
 }
 
-export default session_token;
+export {validate_session, login};

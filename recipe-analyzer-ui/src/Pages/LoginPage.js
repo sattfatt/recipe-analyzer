@@ -1,12 +1,25 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { login, validate_session } from "../Session/session";
 import "../Styles/LoginPage.css"
 
 function LoginPage() {
+
+    const [username, setUsername] = useState()
+    const [password, setPassword] = useState()
+    const navigate = useNavigate();
+
+    const callLogin = () => {
+        console.log(username, password)
+        login(username, password)
+    }
+
     return (
         <div id="login-container">
             Login
-            <input type="text" name="username" id="username" placeholder="Username"></input>
-            <input type="text" name="Password" id="password" placeholder="Password"></input>
-            <button id="login-button">Login</button>
+            <input type="text" name="username" id="username" placeholder="Username" onChange={e => setUsername(e.target.value)}></input>
+            <input type="password" name="Password" id="password" placeholder="Password" onChange={e => setPassword(e.target.value)}></input>
+            <button id="login-button" onClick={callLogin}>Login</button>
         </div>
     )
 }
