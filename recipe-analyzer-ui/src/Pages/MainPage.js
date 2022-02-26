@@ -4,6 +4,10 @@ import { useState } from "react";
 function MainPage() {
     const [nutrientInfo, setNutrientInfo] = useState(null);
     const [toolInfo, setToolsInfo] = useState(null);
+    const [analysisHistory, setAnanlysisHistory] = useState([])
+
+
+
     return (
         <>
             <h1>Recipe Analyzer</h1>

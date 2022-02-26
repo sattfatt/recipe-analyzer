@@ -11,7 +11,6 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [landpage, setLandpage] = useState(<div></div>);
-
   const [cookies, setCookie] = useCookies(['token']);
 
   let navigate = useNavigate();

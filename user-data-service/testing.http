@@ -1,0 +1,23 @@
+###
+# Get user data
+GET http://localhost:4500/userdata/?email=sattfatt@live.com
+
+###
+# create user profile
+POST http://localhost:4500/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Satyam",
+    "email": "sattfatt@live.com"
+}
+
+###
+# add to history
+POST http://localhost:4500/update HTTP/1.1
+Content-Type: application/json
+
+{
+    "email" : "sattfdatt@live.com",
+    "data" : "testing data 123"
+}

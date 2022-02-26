@@ -5,7 +5,6 @@ let current_user = null;
 let current_email = null;
 
 async function validate_session(token) {
-    console.log(token)
     if (token === null || token ===undefined) {
         return false;
     }

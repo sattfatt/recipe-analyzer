@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { login, validate_session } from "../Session/session";
+import { login } from "../Session/session";
 
 import "../Styles/LoginPage.css"
 
@@ -8,7 +7,6 @@ function LoginPage() {
 
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
-    const navigate = useNavigate();
 
     const callLogin = () => {
         console.log(username, password)

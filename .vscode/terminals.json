@@ -6,6 +6,10 @@
       "commands" : ["cd ../recipe_flow/auth-service", "npm start"]
     },
     {
+      "name" : "User Data",
+      "commands" : ["cd user-data-service", "nodemon"]
+    },
+    {
       "name" : "Language",
       "commands" : ["cd nlp-service", "python flask-app.py"]
     },
