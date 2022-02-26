@@ -33,7 +33,7 @@ function RecipeInput(props) {
         generate_report_data(input).then((reportData) => {
             props.setToolsInfo(reportData.products);
             props.setNutrientInfo(reportData.nutrition);
-            push_history(current_email, input);
+            push_history(props.cookies.email, input);
             trigger('RecipeInput:new-report', reportData);
         }).catch((error) => {
             console.log(error);

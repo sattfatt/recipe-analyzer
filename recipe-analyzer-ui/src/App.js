@@ -12,13 +12,17 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [landpage, setLandpage] = useState(<div></div>);
-  const [cookies, setCookie] = useCookies(['token']);
+  const [cookies, setCookie, removeCookie] = useCookies(['token', 'email', 'name']);
 
   let navigate = useNavigate();
 
+  const mainPage = <MainPage cookies={cookies}></MainPage>;
+
   const handleLogin = (e) => {
-    setLandpage(<MainPage></MainPage>);
+    setLandpage(mainPage);
     setCookie('token', e.detail.token);
+    setCookie('email', e.detail.email);
+    setCookie('name', e.detail.name);
     navigate('/', {replace: true});
     setIsLoggedIn(true);
   }
@@ -28,7 +32,7 @@ function App() {
     validate_session(cookies.token).then((valid) => {
       if (valid) {
         setIsLoggedIn(true);
-        setLandpage(<MainPage></MainPage>)
+        setLandpage(mainPage)
       } else {
         setIsLoggedIn(false)
         navigate('/login', {replace: true})
