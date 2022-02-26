@@ -13,13 +13,14 @@
 #collapse-list-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:first baseline;
     align-items: center;
     width: 100%;
-    transition: 1s ease;
+    transition: 0.4s ease;
     padding: 10px 10px 10px 10px;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #collapse-list-title {
@@ -49,14 +50,26 @@
     align-items: center;
     width: 100%;
     background-color: var(--card-color);
-    transition: 1s ease;
+    transition: 0.3s ease;
     border-radius: 10px;
     box-sizing: border-box;
     overflow: hidden;
     margin: 10px;
-    height: 75px;
+    min-height: 75px;
+    max-height: 75px;
 }
 
 #list-item-container>img {
     height: 100%;
+    max-width: 100px;
+}
+
+#list-item-container:hover {
+    transition: 0.1s;
+    filter: brightness(1.5);
+}
+
+#list-item-container:active {
+    transition: 0.1s;
+    filter: brightness(1.2);
 }

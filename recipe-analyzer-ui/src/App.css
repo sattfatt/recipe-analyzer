@@ -6,10 +6,14 @@
   ;
   --card-color: rgba(126, 126, 126, 0.5);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  scrollbar-color: white transparent;
+  scrollbar-width: thin;
 }
 
 .App {
   text-align: center;
+  
 }
 
 .App-header {
