@@ -1,7 +1,8 @@
 import "../Styles/RecipeInput.css"
 import {useEffect, useState} from "react"
-import { call_nutrient_service, call_recipe_scraper, generate_report_data } from "../Controller/controller";
+import { call_nutrient_service, call_recipe_scraper, generate_report_data, push_history } from "../Controller/controller";
 import { trigger } from "../Utilities/Events";
+import { current_email } from "../Session/session";
 
 function RecipeInput(props) {
 
@@ -10,9 +11,6 @@ function RecipeInput(props) {
     const onSubmit = (event) => {
         event.preventDefault();
         const inputData = event.target.url.value;
-
-        
-
         scrape(inputData);
     }
 
@@ -32,11 +30,10 @@ function RecipeInput(props) {
             return;
         }
 
-        
-
         generate_report_data(input).then((reportData) => {
             props.setToolsInfo(reportData.products);
             props.setNutrientInfo(reportData.nutrition);
+            push_history(current_email, input);
             trigger('RecipeInput:new-report', reportData);
         }).catch((error) => {
             console.log(error);

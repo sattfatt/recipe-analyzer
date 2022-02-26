@@ -5,7 +5,10 @@ const PRODUCT_URI = "http://localhost:3800"
 const USER_DATA_URI = "http://localhost:4500";
 
 
-const create_new_user = async (name, email) => {
+
+
+// USER DATA SERVICE
+const new_user_data = async (name, email) => {
     const res = await fetch(USER_DATA_URI + "/create", {
         method: 'POST',
         headers: {
@@ -26,11 +29,13 @@ const push_history = async (email, data) => {
 }
 
 const get_user_data = async (email) => {
-    const res = await fetch(USER_DATA_URI + "/userdata", { method: "GET" });
-    return await res.json()
+    const res = await fetch(USER_DATA_URI + `/userdata?email=${email}`, { method: "GET" });
+    const jsonRes = await res.json();
+    if (res.status !== 200) throw(jsonRes);
+    return await jsonRes;
 }
 
-
+// RECIPE SCRAPER SERVICE
 const call_recipe_scraper = async (url) => {
     // send get request with url query parameter for the site we are scraping
     const res = await fetch(SCRAPER_URI + "?" + "url=" + url, {
@@ -46,6 +51,7 @@ const call_recipe_scraper = async (url) => {
     return data;
 }
 
+// NUTRIENT SERVICE
 const call_nutrient_service = async (ingredients) => {
     const res = await fetch(NUTRIENT_URI, {
         method: 'POST',
@@ -58,6 +64,7 @@ const call_nutrient_service = async (ingredients) => {
     return data;
 }
 
+// IMAGE SERVICE
 const call_image_service = async (query) => {
     const res = await fetch(IMAGE_URI, {
         method: 'GET',
@@ -65,6 +72,7 @@ const call_image_service = async (query) => {
     return res;
 }
 
+// PRODUCT SERVICE
 const call_product_service = async (query) => {
     const res = await fetch(PRODUCT_URI, {
         method: 'GET',
@@ -72,7 +80,7 @@ const call_product_service = async (query) => {
     return res;
 }
 
-
+// CREATE REPORT FROM SERVICES
 const generate_report_data = async (url) => {
     let reportData = {};
     reportData["products"] = [];
@@ -81,7 +89,6 @@ const generate_report_data = async (url) => {
     reportData["productNames"] = [];
 
     const recipeData = await call_recipe_scraper(url);
-
 
     const nutritionInfo = await call_nutrient_service(recipeData);
 
@@ -116,6 +123,6 @@ export {
     call_recipe_scraper,
     call_product_service,
     get_user_data,
-    create_new_user,
+    new_user_data,
     push_history,
 }

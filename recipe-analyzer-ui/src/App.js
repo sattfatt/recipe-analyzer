@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { off, on } from './Utilities/Events';
 import { useCookies } from 'react-cookie';
+import RegisterPage from './Pages/RegisterPage';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,7 +19,8 @@ function App() {
   const handleLogin = (e) => {
     setLandpage(<MainPage></MainPage>);
     setCookie('token', e.detail.token);
-    navigate('/');
+    navigate('/', {replace: true});
+    setIsLoggedIn(true);
   }
 
   // check the session
@@ -29,7 +31,7 @@ function App() {
         setLandpage(<MainPage></MainPage>)
       } else {
         setIsLoggedIn(false)
-        navigate('/login')
+        navigate('/login', {replace: true})
       }
     });
 
@@ -38,20 +40,17 @@ function App() {
     return () => {off('login', handleLogin)};
   }, [])
 
-
-
   return (
     <div className="App">
       <header className="App-header">
         <Routes>
           <Route path="/login" element={<LoginPage></LoginPage>} />
+          <Route path="/register" element={<RegisterPage></RegisterPage>} />
           <Route path="/*" element={landpage} />
         </Routes>
       </header>
     </div>
   );
-
-
 }
 
 export default App;
