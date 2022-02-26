@@ -1,6 +1,6 @@
 ###
 # Get user data
-GET http://localhost:4500/userdata/?email=sattfatt@live.com
+GET http://localhost:4500/userdata/?email=new_mcuser@gmail.com
 
 ###
 # create user profile
