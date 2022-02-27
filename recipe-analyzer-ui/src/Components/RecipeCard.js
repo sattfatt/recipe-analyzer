@@ -49,7 +49,7 @@ function RecipeCard(props) {
                 <CollapseList
                     active={isActive}
                     title="Ingredients"
-                    items={reportData.ingredients}
+                    items={reportData.ingredientLinks}
                     images={reportData.ingredientImages}
                     itemNames={reportData.ingredients}>
 

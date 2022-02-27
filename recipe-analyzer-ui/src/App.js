@@ -16,7 +16,7 @@ function App() {
 
   let navigate = useNavigate();
 
-  const mainPage = <MainPage cookies={cookies}></MainPage>;
+  const mainPage = <MainPage></MainPage>;
 
   const handleLogin = (e) => {
     setLandpage(mainPage);
@@ -45,7 +45,7 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
+    <div className="App" key={document.location.href}>
       <header className="App-header">
         <Routes>
           <Route path="/login" element={<LoginPage></LoginPage>} />

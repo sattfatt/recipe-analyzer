@@ -1,11 +1,8 @@
 const SCRAPER_URI = "http://localhost:3500";
 const NUTRIENT_URI = "http://localhost:3600";
-const IMAGE_URI = "http://localhost:3700";
+const IMAGE_URI = "https://cs361-image-service.herokuapp.com/photo/";
 const PRODUCT_URI = "http://localhost:3800"
 const USER_DATA_URI = "http://localhost:4500";
-
-
-
 
 // USER DATA SERVICE
 const new_user_data = async (name, email) => {
@@ -31,7 +28,7 @@ const push_history = async (email, data) => {
 const get_user_data = async (email) => {
     const res = await fetch(USER_DATA_URI + `/userdata?email=${email}`, { method: "GET" });
     const jsonRes = await res.json();
-    if (res.status !== 200) throw(jsonRes);
+    if (res.status !== 200) throw (jsonRes);
     return await jsonRes;
 }
 
@@ -66,7 +63,8 @@ const call_nutrient_service = async (ingredients) => {
 
 // IMAGE SERVICE
 const call_image_service = async (query) => {
-    const res = await fetch(IMAGE_URI, {
+    const processed = query.split(" ").join("_");
+    const res = await fetch(IMAGE_URI + `${processed}`, {
         method: 'GET',
     })
     return res;
@@ -74,7 +72,7 @@ const call_image_service = async (query) => {
 
 // PRODUCT SERVICE
 const call_product_service = async (query) => {
-    const res = await fetch(PRODUCT_URI, {
+    const res = await fetch(PRODUCT_URI + "?product=" + query, {
         method: 'GET',
     })
     return res;
@@ -87,6 +85,7 @@ const generate_report_data = async (url) => {
     reportData["ingredientImages"] = [];
     reportData["productImages"] = [];
     reportData["productNames"] = [];
+    reportData["ingredientLinks"] = [];
 
     const recipeData = await call_recipe_scraper(url);
 
@@ -98,14 +97,18 @@ const generate_report_data = async (url) => {
         reportData["products"].push(link.link);
         reportData["productNames"].push(tool);
 
-        const img = await (await call_image_service(tool)).json();
-        reportData["productImages"].push(img.link);
+        let img = await (await call_image_service(tool)).text();
+        img = img.charAt(0)==='h'?img:"https://picsum.photos/200";
+        reportData["productImages"].push(img);
     }
 
     // get all the image links for the recipes
     for (const ingredient of recipeData.ingredients) {
-        const link = await (await call_image_service(ingredient)).json();
-        reportData["ingredientImages"].push(link.link);
+        let img = await (await call_image_service(ingredient)).text();
+        img = img.charAt(0)==='h'?img:"https://picsum.photos/200";
+        reportData["ingredientImages"].push(img);
+        const link = await (await call_product_service(ingredient)).json();
+        reportData["ingredientLinks"].push(link.link);
     }
 
     reportData["ingredients"] = recipeData.ingredients;
@@ -113,8 +116,6 @@ const generate_report_data = async (url) => {
 
     return reportData;
 }
-
-
 
 export {
     generate_report_data,

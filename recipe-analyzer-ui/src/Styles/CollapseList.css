@@ -56,12 +56,23 @@
     overflow: hidden;
     margin: 10px;
     min-height: 75px;
+    height: 75px;
     max-height: 75px;
 }
 
 #list-item-container>img {
     height: 100%;
     max-width: 100px;
+    flex : 1;
+}
+
+#list-item-container>a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    height: 100%;
+    flex : 2;
 }
 
 #list-item-container:hover {

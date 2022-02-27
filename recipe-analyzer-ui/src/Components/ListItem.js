@@ -3,8 +3,11 @@ import "../Styles/CollapseList.css"
 
 
 function ListItem(props) {
+
+    const callback = props.scrape?(e)=>{props.scrape(props.item)}:(e)=>{};
+
     return (
-        <div onClick={(e)=>{props.scrape(props.item)}} id="list-item-container">
+        <div onClick={callback} id="list-item-container">
             {props.children}
         </div>
     );

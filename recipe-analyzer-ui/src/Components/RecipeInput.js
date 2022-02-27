@@ -1,7 +1,7 @@
 import "../Styles/RecipeInput.css"
 import {useEffect, useState} from "react"
 import { call_nutrient_service, call_recipe_scraper, generate_report_data, get_user_data, push_history } from "../Controller/controller";
-import { trigger } from "../Utilities/Events";
+import { off, on, trigger } from "../Utilities/Events";
 import { current_email } from "../Session/session";
 import CollapseList from "./CollapseList";
 
@@ -23,17 +23,20 @@ function RecipeInput(props) {
         scrape(inputData)
     }
 
-    useEffect(() => {
+    const gethistory = () => {
         get_user_data(props.cookies.email).then((data) => {
-            setHistory(data.history);
+            setHistory(prev => data.history);
         });
+    }
+
+    useEffect(() => {
+        gethistory();
     },[]);
 
     const scrape = (input) => {
 
         try{
             let domain = new URL(input);
-            console.log(domain.hostname);
             if (domain.hostname !== "www.nutrition.gov"){
                 alert("URL needs to be of the form: http://www.nutrition.gov/recipes/<recipe name>")
                 return;
@@ -56,7 +59,7 @@ function RecipeInput(props) {
             trigger('RecipeInput:new-report', reportData);
         }).catch((error) => {
             console.log(error);
-            alert(error);
+            //alert(error);
         })
     }
 

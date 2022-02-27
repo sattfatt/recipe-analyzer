@@ -1,8 +1,10 @@
 import express from "express";
 import cors from "cors";
+import product_service from "./service.mjs";
 
 const app = express();
 const port = process.env.port || 3800;
+const PRODUCT_SERVICE_URI = "https://cs-361-product-search.herokuapp.com/" //?source={source}&item={item_name}"
 
 
 app.use(express.urlencoded({extended: true}));
@@ -12,7 +14,11 @@ app.use(cors({
 }));
 
 app.get("/", (req, res) => {
-    res.send({link : "https://www.amazon.com/NVIDIA-RTX-3090-Founders-Graphics/dp/B08HR6ZBYJ/ref=sr_1_3?crid=2CA68GN8QMYPG&keywords=rtx+3090+founders&qid=1644693656&sprefix=rtx+3090+founders%2Caps%2C130&sr=8-3"})
+
+    // send request to product service by Travis
+    product_service("amazon", req.query.product).then((result)=> {
+        res.status(200).send({link : result});
+    });
 });
 
 

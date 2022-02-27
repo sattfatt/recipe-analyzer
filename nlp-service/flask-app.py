@@ -14,7 +14,7 @@ def onGet():
     tools = []
     for ent in doc.ents:
         
-        tools.append(ent.text + " | " + ent.label_)
+        tools.append(ent.text)
     return jsonify({'tools' : tools})
 
 app.run(debug=True, port=8000)

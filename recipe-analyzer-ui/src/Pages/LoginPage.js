@@ -10,7 +10,6 @@ function LoginPage() {
     const [failureMessage, setFailureMessage] = useState(<div></div>);
 
     const callLogin = () => {
-        console.log(username, password)
         login(username, password).catch((error)=>{
             setFailureMessage(<div style={{color:"red", fontSize:"10px"}}>User not found!</div>)
         })

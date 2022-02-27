@@ -30,10 +30,10 @@ const createUserData = async (name, email) => {
 }
 
 const addUserHistory = async (email, data) => {
-    const result = await ProfileModel.updateOne({email}, {"$push" : {"history" : data}});
+    const result = await ProfileModel.updateOne({email}, {"$addToSet" : {"history" : data}});
     console.log(result);
     if (result.modifiedCount  > 0) return true;
-    throw({error: "User not found."})
+    throw({error: "User not found/or data allready exists."})
 }
 
 export {ProfileModel, getUserData, createUserData, addUserHistory};
