@@ -16,7 +16,7 @@ app.use(cors({
 app.get("/", (req, res) => {
 
     // send request to product service by Travis
-    product_service("amazon", req.query.product).then((result)=> {
+    product_service(req.query.store, req.query.product).then((result)=> {
         res.status(200).send({link : result});
     });
 });

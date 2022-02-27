@@ -71,8 +71,8 @@ const call_image_service = async (query) => {
 }
 
 // PRODUCT SERVICE
-const call_product_service = async (query) => {
-    const res = await fetch(PRODUCT_URI + "?product=" + query, {
+const call_product_service = async (store, query) => {
+    const res = await fetch(PRODUCT_URI + "?store=" + store +"&product="+query, {
         method: 'GET',
     })
     return res;
@@ -93,7 +93,7 @@ const generate_report_data = async (url) => {
 
     // get all the products and put then in products list
     for (const tool of recipeData.tools) {
-        const link = await (await call_product_service(tool)).json();
+        const link = await (await call_product_service("amazon", tool)).json();
         reportData["products"].push(link.link);
         reportData["productNames"].push(tool);
 
@@ -107,7 +107,7 @@ const generate_report_data = async (url) => {
         let img = await (await call_image_service(ingredient)).text();
         img = img.charAt(0)==='h'?img:"https://picsum.photos/200";
         reportData["ingredientImages"].push(img);
-        const link = await (await call_product_service(ingredient)).json();
+        const link = await (await call_product_service("kroger",ingredient)).json();
         reportData["ingredientLinks"].push(link.link);
     }
 

@@ -12,6 +12,7 @@ function LoadingModule(props) {
         setHtml(
             <div>Generating Report<Loadsvg/></div>
         );
+        document.getElementById("loading-container").scrollIntoView({behavior:"smooth"});
     }
 
     const onEnd = (e) => {
