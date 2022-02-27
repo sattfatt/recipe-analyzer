@@ -5,6 +5,7 @@ import { ProfileBox } from "../Components/ProfileBox";
 import "../Styles/ProfileBox.css"
 import { useLocation } from "react-router-dom";
 import {useCookies} from "react-cookie";
+import LoadingModule from "../Components/LoadingModule";
 
 function MainPage(props) {
     const [nutrientInfo, setNutrientInfo] = useState(null);
@@ -16,6 +17,7 @@ function MainPage(props) {
         <>
             <h1>Recipe Analyzer</h1>
             <RecipeInput cookies={cookies} setNutrientInfo = {setNutrientInfo} setToolsInfo = {setToolsInfo}></RecipeInput>
+            <LoadingModule></LoadingModule>
             <RecipeCard nutrients={nutrientInfo}></RecipeCard>
             <ProfileBox cookies={cookies}></ProfileBox>
         </>

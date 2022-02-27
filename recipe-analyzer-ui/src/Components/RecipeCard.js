@@ -19,11 +19,17 @@ function RecipeCard(props) {
         document.getElementById("recipe-card-container").scrollIntoView({behavior:"smooth"});
     }
 
+    const onStartReport = (e) => {
+        setIsActive((active) => false);
+    }
+
     useEffect(() => {
-        on('RecipeInput:new-report', onReport);
+        on('RecipeInput:end-report', onReport);
+        on('RecipeInput:start-report', onStartReport);
 
         return (() => {
-            off('RecipeInput:new-report', onReport);
+            off('RecipeInput:end-report', onReport);
+            off('RecipeInput:start-report', onStartReport);
         })
     }, [])
 

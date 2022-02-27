@@ -48,6 +48,7 @@ function RecipeInput(props) {
             return;
         }
 
+        trigger('RecipeInput:start-report');
         generate_report_data(input).then((reportData) => {
             props.setToolsInfo(reportData.products);
             props.setNutrientInfo(reportData.nutrition);
@@ -56,7 +57,7 @@ function RecipeInput(props) {
                     setHistory(data.history);
                 });
             });
-            trigger('RecipeInput:new-report', reportData);
+            trigger('RecipeInput:end-report', reportData);
         }).catch((error) => {
             console.log(error);
             //alert(error);
