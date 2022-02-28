@@ -9,5 +9,18 @@
     font-size: 15px;
     padding: 20px;
     background-color: var(--card-color);
-    border-radius: 100px;
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+#profile-container:hover {
+    box-shadow: rgba(0, 0, 0, 0.144) 0px 1px 10px 1px;
+}
+
+#profile-container:active {
+    filter:brightness(2);
+    transition: 0.1s;
+}
+
+#profile-container button {
+    transition: 0.5s;
 }

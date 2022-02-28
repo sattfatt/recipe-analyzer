@@ -1,10 +1,11 @@
 * {
   --background-color: #454b5a;
-  --highlight-color-1: rgb(161, 248, 80);
+  --highlight-color-1: #a1f850;
   ;
-  --highlight-color-2: rgb(80, 181, 248);
+  --highlight-color-2: #50b5f8;
   ;
-  --card-color: rgba(126, 126, 126, 0.5);
+  --card-color: rgba(202, 202, 202, 0.11);
+  --base-color: #121212;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
   scrollbar-color: white transparent;
@@ -39,6 +40,10 @@ a {
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   padding: 10px;
   border-radius: 5px;
   background-color: var(--highlight-color-1);
