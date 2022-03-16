@@ -49,13 +49,13 @@ const call_recipe_scraper = async (url) => {
 }
 
 // NUTRIENT SERVICE
-const call_nutrient_service = async (ingredients) => {
+const call_nutrient_service = async (ingredients, servings) => {
     const res = await fetch(NUTRIENT_URI, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(ingredients)
+        body: JSON.stringify({"ingredients":ingredients,"servings":servings})
     });
     const data = await res.json();
     return data;
@@ -89,7 +89,8 @@ const generate_report_data = async (url) => {
 
     const recipeData = await call_recipe_scraper(url);
 
-    const nutritionInfo = await call_nutrient_service(recipeData);
+    const nutritionInfo = await call_nutrient_service(recipeData.rawIngredients, recipeData.servings);
+    console.log(recipeData.servings)
 
     // get all the products and put then in products list
     for (const tool of recipeData.tools) {

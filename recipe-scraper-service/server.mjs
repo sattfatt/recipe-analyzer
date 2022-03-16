@@ -27,7 +27,7 @@ const scrape_recipe = async (url) => {
     const preperation = [];
     const quantities = [];
     const units = [];
-    
+    let rawIngredients = [];
     
     // parse out ingredients and quantities and units and steps
     const ingredientsElement = await page.$('.field--type-ingredient');
@@ -35,11 +35,19 @@ const scrape_recipe = async (url) => {
     const stepsElement = await page.$('.field--name-recipe-instructions > div:nth-child(2) > ol:nth-child(1)');
     const stepsText = await stepsElement.evaluate(el=>el.innerText);
     const steps = stepsText.split("\n");
+
+    const yieldElement = await page.$('.field--name-recipe-yield > div:nth-child(2)')
+    const servings = await yieldElement.evaluate(el=>el.innerText)
     
     for (let i = 0; i < children.length; i++) {
         const element = children[i];
+        const raw = await element.evaluate(el=>el.innerText)
+        rawIngredients.push(raw)
         const [quantEl, nameEl] = await element.$$(':scope>*');
-        const name = await nameEl.evaluate(el => el.innerText)
+        let name = ""
+        if (nameEl) name = await nameEl.evaluate(el => el.innerText)
+        else name = quantEl.evaluate(el => el.innerText)
+        console.log(raw)
         const [ing, prep] = name.split("(");
         ingredients.push(ing.trim());
         preperation.push(prep?prep.replace(/\)+$/g, ""):"none");
@@ -62,7 +70,16 @@ const scrape_recipe = async (url) => {
     tools = Array.from(new Set(tools))
 
     browser.close();
-    return { "ingredients": ingredients, "quantities": quantities, "units": units, "preparation": preperation, "tools":tools, "steps":steps};
+    return {
+        "servings":servings.split(" ")[0], 
+        "rawIngredients":rawIngredients, 
+        "ingredients": ingredients, 
+        "quantities": quantities, 
+        "units": units, 
+        "preparation": preperation, 
+        "tools":tools, 
+        "steps":steps
+    };
 }
 
 
