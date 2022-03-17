@@ -43,7 +43,7 @@ function CollapseList(props) {
             items.map((item, index) => {
                 return (
                     <ListItem key={index}>
-                        <a href={item}  rel="noopener noreferrer" target="_blank">{itemNames[index]}</a>
+                        <a href={item} rel="noopener noreferrer" target="_blank">{itemNames[index]}</a>
                         <img src={images[index]} ></img>
                     </ListItem>
                 )

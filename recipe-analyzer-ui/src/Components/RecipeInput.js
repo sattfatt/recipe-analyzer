@@ -1,8 +1,7 @@
 import "../Styles/RecipeInput.css"
 import {useEffect, useState} from "react"
-import { call_nutrient_service, call_recipe_scraper, generate_report_data, get_user_data, push_history } from "../Controller/controller";
-import { off, on, trigger } from "../Utilities/Events";
-import { current_email } from "../Session/session";
+import { generate_report_data, get_user_data, push_history } from "../Controller/controller";
+import { trigger } from "../Utilities/Events";
 import CollapseList from "./CollapseList";
 
 function RecipeInput(props) {

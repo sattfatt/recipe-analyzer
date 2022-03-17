@@ -34,17 +34,15 @@ const get_user_data = async (email) => {
 
 // RECIPE SCRAPER SERVICE
 const call_recipe_scraper = async (url) => {
-    // send get request with url query parameter for the site we are scraping
     const res = await fetch(SCRAPER_URI + "?" + "url=" + url, {
         method: 'GET'
     });
-    // convert to json
     const data = await res.json();
 
     if (data.error) {
         throw (data.error)
     }
-    // return the data
+
     return data;
 }
 
@@ -55,7 +53,7 @@ const call_nutrient_service = async (ingredients, servings) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"ingredients":ingredients,"servings":servings})
+        body: JSON.stringify({ "ingredients": ingredients, "servings": servings })
     });
     const data = await res.json();
     return data;
@@ -72,7 +70,7 @@ const call_image_service = async (query) => {
 
 // PRODUCT SERVICE
 const call_product_service = async (store, query) => {
-    const res = await fetch(PRODUCT_URI + "?store=" + store +"&product="+query, {
+    const res = await fetch(PRODUCT_URI + "?store=" + store + "&product=" + query, {
         method: 'GET',
     })
     return res;
@@ -88,7 +86,6 @@ const generate_report_data = async (url) => {
     reportData["ingredientLinks"] = [];
 
     const recipeData = await call_recipe_scraper(url);
-
     const nutritionInfo = await call_nutrient_service(recipeData.rawIngredients, recipeData.servings);
     console.log(recipeData.servings)
 
@@ -97,18 +94,17 @@ const generate_report_data = async (url) => {
         const link = await (await call_product_service("amazon", tool)).json();
         reportData["products"].push(link.link);
         reportData["productNames"].push(tool);
-
         let img = await (await call_image_service(tool)).text();
-        img = img.charAt(0)==='h'?img:"https://picsum.photos/200";
+        img = img.charAt(0) === 'h' ? img : "https://picsum.photos/200";
         reportData["productImages"].push(img);
     }
 
     // get all the image links for the recipes
     for (const ingredient of recipeData.ingredients) {
         let img = await (await call_image_service(ingredient)).text();
-        img = img.charAt(0)==='h'?img:"https://picsum.photos/200";
+        img = img.charAt(0) === 'h' ? img : "https://picsum.photos/200";
         reportData["ingredientImages"].push(img);
-        const link = await (await call_product_service("kroger",ingredient)).json();
+        const link = await (await call_product_service("kroger", ingredient)).json();
         reportData["ingredientLinks"].push(link.link);
     }
 

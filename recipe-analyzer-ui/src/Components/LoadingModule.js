@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { off, on } from "../Utilities/Events";
 import "../Styles/LoadingModule.css"
 import React from "react";
-import {ReactComponent as Loadsvg} from "../SVG/loading1.svg";
+import { ReactComponent as Loadsvg } from "../SVG/loading1.svg";
 
 function LoadingModule(props) {
     const [html, setHtml] = useState();
@@ -10,16 +10,16 @@ function LoadingModule(props) {
 
     const onStart = (e) => {
         setHtml(
-            <div>Generating Report<Loadsvg/></div>
+            <div>Generating Report<Loadsvg /></div>
         );
-        document.getElementById("loading-container").scrollIntoView({behavior:"smooth"});
+        document.getElementById("loading-container").scrollIntoView({ behavior: "smooth" });
     }
 
     const onEnd = (e) => {
         setHtml();
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         on("RecipeInput:start-report", onStart);
         on("RecipeInput:end-report", onEnd);
 

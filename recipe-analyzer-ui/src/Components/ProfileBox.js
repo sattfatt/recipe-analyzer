@@ -1,14 +1,13 @@
 import { useState } from "react";
-import {useCookies} from "react-cookie";
-
-import {MdLogout} from "react-icons/md"
+import { useCookies } from "react-cookie";
+import { MdLogout } from "react-icons/md"
 
 function ProfileBox(props) {
 
     const [toggle, setToggle] = useState(false);
     const [logoutElement, setLogoutElement] = useState();
     const [cookies, setCookie, removeCookie] = useCookies(['token', 'name', 'email']);
-    
+
     const logout = () => {
         removeCookie('token');
         removeCookie('name');
@@ -18,7 +17,7 @@ function ProfileBox(props) {
 
     const onClick = () => {
         if (!logoutElement) {
-            setLogoutElement(<button style={{background:"red", color:"white"}} id="logout-button" onClick={logout}>Logout &nbsp;<MdLogout/></button>)
+            setLogoutElement(<button style={{ background: "red", color: "white" }} id="logout-button" onClick={logout}>Logout &nbsp;<MdLogout /></button>)
         } else {
             setLogoutElement();
         }
@@ -33,4 +32,4 @@ function ProfileBox(props) {
     );
 }
 
-export {ProfileBox};
+export { ProfileBox };
