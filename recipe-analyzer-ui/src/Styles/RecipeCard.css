@@ -7,8 +7,9 @@
     background-color: var(--card-color);
     border-radius: 10px;
     font-size: 20px;
-    width: 25vw;
+    width: 90vw;
     min-width: 250px;
+    max-width: 500px;
     margin-top: 100px;
     margin-bottom: 250px;
 }

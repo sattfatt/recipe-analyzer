@@ -46,7 +46,7 @@ const scrape_recipe = async (url) => {
         const [quantEl, nameEl] = await element.$$(':scope>*');
         let name = ""
         if (nameEl) name = await nameEl.evaluate(el => el.innerText)
-        else name = quantEl.evaluate(el => el.innerText)
+        else name = await quantEl.evaluate(el => el.innerText)
         console.log(raw)
         const [ing, prep] = name.split("(");
         ingredients.push(ing.trim());
@@ -71,19 +71,16 @@ const scrape_recipe = async (url) => {
 
     browser.close();
     return {
-        "servings":servings.split(" ")[0], 
-        "rawIngredients":rawIngredients, 
+        "servings": servings.split(" ")[0].split(",")[0], 
+        "rawIngredients": rawIngredients, 
         "ingredients": ingredients, 
         "quantities": quantities, 
         "units": units, 
         "preparation": preperation, 
-        "tools":tools, 
-        "steps":steps
+        "tools": tools, 
+        "steps": steps
     };
 }
-
-
-
 
 app.get("/", (req, res) => {
     scrape_recipe(req.query.url).then((data) => {
